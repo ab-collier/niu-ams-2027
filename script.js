@@ -40,7 +40,7 @@ function render() {
   const chosenDate = dateFilter.value;
   const chosenFormat = formatFilter.value;
   const filtered = presentations.filter(p => {
-    const haystack = [p.title,p.presenter,p.location,p.format].join(" ").toLowerCase();
+    const haystack = [p.title,p.presenter,p.role,p.location,p.format].join(" ").toLowerCase();
     return (!term || haystack.includes(term))
       && (!chosenDate || dateKey(p.date) === chosenDate)
       && (!chosenFormat || p.format.toLowerCase() === chosenFormat.toLowerCase());
@@ -50,6 +50,7 @@ function render() {
   resultCount.textContent = `${filtered.length} ${filtered.length === 1 ? "presentation" : "presentations"} found`;
   list.innerHTML = filtered.map(p => {
     const isPoster = p.format.toLowerCase() === "poster";
+    const roleMarkup = p.role ? ` <span class="role">• ${escapeHTML(p.role)}</span>` : "";
     return `<article class="card">
       <div class="when">
         <div class="day">${escapeHTML(prettyDate(p.date, {weekday:"long"}))}</div>
@@ -59,7 +60,7 @@ function render() {
       <div class="details">
         <div class="tags"><span class="tag ${isPoster ? "poster" : ""}">${escapeHTML(p.format)}</span></div>
         <h2 class="title">${escapeHTML(p.title)}</h2>
-        <p class="presenter">${escapeHTML(p.presenter)}</p>
+        <p class="presenter">${escapeHTML(p.presenter)}${roleMarkup}</p>
         <p class="location">${escapeHTML(p.location || "Location TBD")}</p>
       </div>
     </article>`;
@@ -78,6 +79,7 @@ async function loadSchedule() {
       time_mst:(row.time_mst || "").trim(),
       title:(row.title || "").trim(),
       presenter:(row.presenter || "").trim(),
+      role:(row.role || "").trim(),
       format:(row.format || "").trim(),
       location:(row.location || "").trim()
     })).filter(p => p.title && p.date);
