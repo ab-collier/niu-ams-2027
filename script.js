@@ -1,4 +1,4 @@
-﻿const DATA_URL = "data/presentations.csv";
+const DATA_URL = "data/presentations.csv";
 let presentations = [];
 
 const list = document.getElementById("presentationList");
@@ -109,4 +109,30 @@ async function loadSchedule() {
     if (parsed.errors.length) console.warn("CSV parsing warnings:", parsed.errors);
     presentations = parsed.data.map(row => ({
       date: (row.date || "").trim(),
-      time_mst: (row.time
+      time_mst: (row.time_mst || "").trim(),
+      title: (row.title || "").trim(),
+      presenter: (row.presenter || "").trim(),
+      role: (row.role || "").trim(),
+      format: (row.format || "").trim(),
+      location: (row.location || "").trim(),
+      confexLink: (row["confex link"] || row.confex_link || "").trim(),
+      abstract: (row.abstract || "").trim()
+    })).filter(p => p.title && p.date);
+    populateDates();
+    render();
+  } catch (error) {
+    list.innerHTML = `<p class="empty-state">The schedule could not be loaded. Make sure <code>data/presentations.csv</code> is in the repository and that the site is being viewed through GitHub Pages.</p>`;
+    resultCount.textContent = "Schedule unavailable";
+    console.error(error);
+  }
+}
+searchInput.addEventListener("input", render);
+dateFilter.addEventListener("change", render);
+formatFilter.addEventListener("change", render);
+document.getElementById("clearFilters").addEventListener("click", () => {
+  searchInput.value = "";
+  dateFilter.value = "";
+  formatFilter.value = "";
+  render();
+});
+loadSchedule();
