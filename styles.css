@@ -53,8 +53,8 @@ select { min-width:170px; border:1px solid #d7cbd0; background:white; border-rad
 .card-dropdown { background:#faf8f8; border:1px solid var(--line); border-top:0; border-radius:0; }
 .card-dropdown summary { list-style:none; cursor:pointer; padding:10px 21px; font-size:.82rem; font-weight:700; color:var(--red-dark); display:flex; align-items:center; justify-content:space-between; user-select:none; }
 .card-dropdown summary::-webkit-details-marker { display:none; }
-.card-dropdown summary::after { content:"+"; font-size:1.05rem; line-height:1; }
-.card-dropdown[open] summary::after { content:"−"; }
+.card-dropdown summary::after { content:"⌄"; font-size:1.05rem; line-height:1; }
+.card-dropdown[open] summary::after { content:"⌃"; }
 .card-dropdown[open] summary { border-bottom:1px solid var(--line); }
 .card-dropdown-body { padding:15px 21px 18px; background:white; }
 .abstract { margin:0 0 12px; color:var(--ink); font-size:.88rem; line-height:1.6; }
