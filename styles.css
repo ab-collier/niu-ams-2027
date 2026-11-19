@@ -67,7 +67,7 @@ footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; c
 .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 @media(max-width:620px) {
  .hero { padding:42px 22px 36px; flex-direction:column-reverse; align-items:flex-start; gap:20px; }
- .hero-logo { height:72px; }
+ .hero-logo { height:12px; }
  .hero-mark { display:none; }
  .intro { font-size:.96rem; }
  .page { padding:20px 14px; }
